@@ -3,6 +3,8 @@ import swalert from '@sweetalert/with-react';
 import { Link } from 'react-router-dom';
 import { useState  } from 'react';
 import Listado from './Listado';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 
@@ -45,7 +47,7 @@ function Login( { onLogin } ) {
         .then(res => {
             swalert(<h2> Estamos conectados</h2>)
             const tokenRecibido = res.data.token;
-            localStorage.setItem('token', tokenRecibido);
+           sessionStorage.setItem('token', tokenRecibido);
             setLoggedIn(true);
             onLogin();
          
@@ -57,26 +59,29 @@ function Login( { onLogin } ) {
   if (loggedIn) {
     return <Link to="/listado"><Listado /></Link>;
   }
+   
      
     return (
         <>
-
-        <h2>Formulario de Login</h2>
-    <form onSubmit={submitHandler}>
-        <label htmlFor="">
-            <span>Correo Electronico:</span> <br />
-        </label>
-        <input type="text" name="email" />
-        <br />
-         <label htmlFor="">
-            <span>Contraseña:</span> <br />
-        </label>
-        <input type="password" name="password" />
-        <br />
+        <h3>Formulario de Login</h3>
+     <div className='col-md-4 mx-auto text-center'>
+           
+        <form onSubmit={submitHandler}>
+           <label htmlFor="email" >
+               <span>Correo Electronico:</span> <br />
+           </label>
+           <input className="form-control form-control-sm d-flex justify-content-center " style={{ width: '100%' }} id="email" autocomplete="email"aria-describedby="emailHelp" type="text" name="email" />
+           <br />
+            <label htmlFor="pass"> <br />
+               <span>Contraseña:</span> 
+           </label>
+           <input className="form-control form-control-sm" style={{ width: '100%' }} id="pass" autocomplete="password"type="password" name="password" />
+           <br />
+           
+           <button className="btn btn-info" type="submit" >Enviar</button>
         
-        <button type="submit" >Enviar</button>
-
-    </form>
+        </form>
+     </div>
     </>
     ) 
     
